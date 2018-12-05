@@ -1,0 +1,20 @@
+--- haproxy/Makefile.orig	2009-03-29 23:55:04.000000000 -0400
++++ haproxy/Makefile	2009-03-29 23:56:55.000000000 -0400
+@@ -60,7 +60,7 @@
+ 
+ #### Installation options.
+ DESTDIR =
+-PREFIX = /usr/local
++PREFIX = /usr
+ SBINDIR = $(PREFIX)/sbin
+ MANDIR = $(PREFIX)/share/man
+ DOCDIR = $(PREFIX)/doc/haproxy
+@@ -70,7 +70,7 @@
+ # following list (use the default "generic" if uncertain) :
+ #    generic, linux22, linux24, linux24e, linux26, solaris,
+ #    freebsd, openbsd, custom
+-TARGET =
++TARGET = linux26
+ 
+ #### TARGET CPU
+ # Use CPU=<cpu_name> to optimize for a particular CPU, among the following

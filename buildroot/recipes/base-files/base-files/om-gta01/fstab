@@ -1,0 +1,5 @@
+/dev/mtdblock4	/ 		jffs2	rw,noatime	1  1
+proc		/proc		proc	defaults	0  0
+
+# microSD slot
+/dev/mmcblk0p1	/media/card	auto	defaults,async	0  0

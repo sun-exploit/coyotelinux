@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# haproxy	init.d script for haproxy
+#
+# You *must* create or update the /etc/haproxy/haproxy.conf file for
+# this to work properly
+CONF=/etc/haproxy/haproxy.conf
+PIDFILE=/var/run/haproxy.pid
+
+case "$1" in
+  start)
+	echo -n "Starting haproxy: "
+	start-stop-daemon --start -x /usr/bin/haproxy -- -D -f "${CONF}" -p "${PIDFILE}" "$@"
+	echo "done"
+	;;
+  stop)
+	echo -n "Stopping haproxy: "
+	start-stop-daemon --stop -s 3 -p "${PIDFILE}"
+	echo "done"
+	;;
+  restart|reload)
+	echo -n "Restarting haproxy: "
+	start-stop-daemon --stop -s 3 -p "${PIDFILE}"
+	start-stop-daemon --start -x /usr/bin/haproxy -- -D -f "${CONF}" -p "${PIDFILE}" "$@"
+	echo "done"
+	;;
+  *)
+	echo "haproxy: haproxy { start | stop | restart | reload }" >&2
+	exit 1
+	;;
+esac
+
+exit 0

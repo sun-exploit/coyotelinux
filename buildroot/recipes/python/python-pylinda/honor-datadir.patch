@@ -1,0 +1,15 @@
+
+#
+# Patch managed by http://www.holgerschurig.de/patcher.html
+#
+
+--- linda-0.6/setup.py~honor-datadir.patch
++++ linda-0.6/setup.py
+@@ -68,6 +68,7 @@
+         f.close()
+ 
+ def getlibpath():
++    return os.getenv("LINDA_DATADIR")
+     l = sys.path
+     l.reverse()
+     for x in l:

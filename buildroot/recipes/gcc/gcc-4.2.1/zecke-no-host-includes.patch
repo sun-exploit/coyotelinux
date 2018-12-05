@@ -1,0 +1,44 @@
+upstream: n/a
+status: evil hack
+comment: Including host system headers when cross compiling can lead to weird
+issues, in the best case compile issues, in the worst case crashes. E.g. if you
+are building a uclibc system, you certainly do not want glibc headers or OSX libc
+headers to be picked up. To avoid that this patch is penetalizing certain common
+Linux/Unix host directories.
+
+To send the patch upstream the evil paths should be specified by
+a setting or command-line options. Until now this is a evil hack assuming
+certain host system paths. E.g. /usr/local/ and other common paths should be
+added.
+
+Index: gcc-4.0.2/gcc/c-incpath.c
+===================================================================
+--- gcc-4.0.2.orig/gcc/c-incpath.c	2005-01-23 16:05:27.000000000 +0100
++++ gcc-4.0.2/gcc/c-incpath.c	2006-05-15 21:23:02.000000000 +0200
+@@ -350,6 +350,26 @@
+   p->construct = 0;
+   p->user_supplied_p = user_supplied_p;
+ 
++#ifdef CROSS_COMPILE
++    /* A common error when cross compiling is including
++    host headers. This code below will try to fail fast
++    for cross compiling. Currently we consider /usr/include,
++    /opt/include and /sw/include as harmful.  */
++	{
++		/* printf("Adding Path: %s\n", p->name ); */
++		if( strstr(p->name, "/usr/include" ) == p->name ) {
++			fprintf(stderr, _("CROSS COMPILE Badness: /usr/include in INCLUDEPATH: %s\n"), p->name);
++			abort();
++		} else if( strstr(p->name, "/sw/include") == p->name ) {
++			fprintf(stderr, _("CROSS COMPILE Badness: /sw/include in INCLUDEPATH: %s\n"), p->name);
++			abort();
++		} else if( strstr(p->name, "/opt/include") == p->name ) {
++			fprintf(stderr, _("CROSS COMPILE Badness: /opt/include in INCLUDEPATH: %s\n"), p->name);
++			abort();
++		 }
++	}
++#endif
++
+   add_cpp_dir_path (p, chain);
+ }
+ 

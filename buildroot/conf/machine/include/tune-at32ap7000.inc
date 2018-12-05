@@ -1,0 +1,3 @@
+TARGET_CC_ARCH = "-march=ap"
+BASE_PACKAGE_ARCH = "avr32"
+FEED_ARCH = "avr32"

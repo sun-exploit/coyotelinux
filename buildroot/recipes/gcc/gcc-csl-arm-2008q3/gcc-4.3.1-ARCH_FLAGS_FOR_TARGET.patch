@@ -1,0 +1,22 @@
+--- /tmp/configure.ac	2008-11-18 09:07:49.000000000 +0100
++++ gcc-4.3/configure.ac	2008-11-18 09:09:22.000000000 +0100
+@@ -2320,7 +2320,7 @@
+ # for target_alias and gcc doesn't manage it consistently.
+ target_configargs="--cache-file=./config.cache ${target_configargs}"
+ 
+-FLAGS_FOR_TARGET=
++FLAGS_FOR_TARGET="$ARCH_FLAGS_FOR_TARGET"
+ case " $target_configdirs " in
+  *" newlib "*)
+   case " $target_configargs " in
+--- /tmp/configure	2008-11-18 09:07:54.000000000 +0100
++++ gcc-4.3/configure	2008-11-18 09:08:59.000000000 +0100
+@@ -5809,7 +5809,7 @@
+ # for target_alias and gcc doesn't manage it consistently.
+ target_configargs="--cache-file=./config.cache ${target_configargs}"
+ 
+-FLAGS_FOR_TARGET=
++FLAGS_FOR_TARGET="$ARCH_FLAGS_FOR_TARGET"
+ case " $target_configdirs " in
+  *" newlib "*)
+   case " $target_configargs " in
